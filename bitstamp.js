@@ -17,8 +17,10 @@ _.mixin({
 var Bitstamp = function(user, password) {
   this.user = user;
   this.password = password;
-
-  _.bindAll(this);
+  self = this
+  _.each(_.functions(self), function(f) {
+    self[f] = _.bind(self[f], self);
+  });
 }
 
 Bitstamp.prototype._request = function(method, path, data, callback, args) {
@@ -44,6 +46,9 @@ Bitstamp.prototype._request = function(method, path, data, callback, args) {
         return callback(err);
       }
       callback(null, json);
+    });
+    res.on('error', function(err) {
+      callback(err);
     });
   });
   req.end(data);
