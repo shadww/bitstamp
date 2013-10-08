@@ -8,9 +8,10 @@ publicBitstamp.order_book(false, console.log);
 publicBitstamp.bitinstant(console.log);
 publicBitstamp.eur_usd(console.log);
 
-var user = 'your username';
-var password = 'your password';
-var privateBitstamp = new Bitstamp(user, password);
+var clientId = 'your client id';
+var key = 'key';
+var secret = 'secret';
+var privateBitstamp = new Bitstamp(clientId, key, secret);
 
 privateBitstamp.balance(console.log);
 privateBitstamp.user_transactions(100, console.log);

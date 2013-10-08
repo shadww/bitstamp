@@ -1,6 +1,8 @@
 var querystring = require("querystring");
 var https = require('https');
 var _ = require('underscore');
+var crypto = require("crypto");
+
 
 _.mixin({
   // compact for objects
@@ -14,9 +16,10 @@ _.mixin({
   }
 });  
 
-var Bitstamp = function(user, password) {
-  this.user = user;
-  this.password = password;
+var Bitstamp = function(clientId, key, secret) {
+  this.clientId = clientId;
+  this.key = key;
+  this.secret = secret;
   self = this
   _.each(_.functions(self), function(f) {
     self[f] = _.bind(self[f], self);
@@ -32,7 +35,6 @@ Bitstamp.prototype._request = function(method, path, data, callback, args) {
       'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)'
     }
   };
-
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     var buffer = '';
@@ -61,14 +63,18 @@ Bitstamp.prototype._get = function(action, callback, args) {
 }
 
 Bitstamp.prototype._post = function(action, callback, args) {
-  if(!this.user || !this.password)
+  if(!this.key || !this.secret)
     return callback('Must provide key and secret to make this API request.');
-
   var path = '/api/' + action + '/';
-  args = _.extend({user: this.user, password: this.password}, args);
+  nonce = new Date().getTime()
+  args = _.extend({key: this.key, nonce: nonce}, args);
   args = _.compactObject(args);
+  var message = nonce.toString() + this.clientId + this.key
+  var hmac = crypto.createHmac("sha256", new Buffer(this.secret));
+  hmac.update(message);
+  signature = hmac.digest("hex").toUpperCase();
+  args.signature = signature;
   var data = querystring.stringify(args);
-
   this._request('post', path, data, callback, args);
 }
 
