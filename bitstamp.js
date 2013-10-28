@@ -32,7 +32,8 @@ Bitstamp.prototype._request = function(method, path, data, callback, args) {
     path: path,
     method: method,
     headers: {
-      'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)'
+      'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)',
+      'Content-Length': data.length
     }
   };
   var req = https.request(options, function(res) {

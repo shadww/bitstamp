@@ -26,5 +26,6 @@
     "url": "https://github.com/askmike/bitstamp/issues",
     "email": "mike@mvr.me"
   },
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "private":true
 }
