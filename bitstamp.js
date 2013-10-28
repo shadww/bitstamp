@@ -27,13 +27,18 @@ var Bitstamp = function(clientId, key, secret) {
 }
 
 Bitstamp.prototype._request = function(method, path, data, callback, args) {
+  if (data) {
+    contentLength = data.length
+  } else {
+    contentLength = 0
+  }
   var options = {
     host: 'www.bitstamp.net',
     path: path,
     method: method,
     headers: {
       'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)',
-      'Content-Length': data.length
+      'Content-Length': contentLength
     }
   };
   var req = https.request(options, function(res) {
