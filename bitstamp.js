@@ -38,6 +38,7 @@ Bitstamp.prototype._request = function(method, path, data, callback, args) {
     method: method,
     headers: {
       'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)',
+      'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': contentLength
     }
   };
