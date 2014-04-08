@@ -8,14 +8,14 @@ publicBitstamp.order_book(false, console.log);
 publicBitstamp.bitinstant(console.log);
 publicBitstamp.eur_usd(console.log);
 
-var clientId = 'your client id';
-var key = 'key';
-var secret = 'secret';
+var clientId = '554834';
+var key = '4lJpxErEwCIUqkb2zFvcbL3dY6RMm3sV';
+var secret = 'PvF6uO10TF5BOvCEFw2xcBXBuYHvADSO';
 var privateBitstamp = new Bitstamp(clientId, key, secret);
 
 privateBitstamp.balance(console.log);
-privateBitstamp.user_transactions(100, console.log);
-privateBitstamp.open_orders(console.log);
+//privateBitstamp.user_transactions(100, console.log);
+//privateBitstamp.open_orders(console.log);
 
 //    commented out for your protection
 

@@ -40,7 +40,8 @@ Bitstamp.prototype._request = function(method, path, data, callback, args) {
       'User-Agent': 'Mozilla/4.0 (compatible; Bitstamp node.js client)',
       'Content-Type': 'application/x-www-form-urlencoded',
       'Content-Length': contentLength
-    }
+    },
+    rejectUnauthorized: false
   };
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
